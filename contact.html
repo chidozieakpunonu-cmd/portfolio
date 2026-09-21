@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Chidozie Akpunonu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ HEADER / NAV (same block as other pages, "Contact" active) ============ -->
+<header>
+  <div class="nav-wrap">
+    <a href="index.html" class="logo">Chidozie <span>Akpunonu</span></a>
+    <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="service.html">Services</a></li>
+        <li><a href="contact.html" class="active">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="contact.html" class="nav-cta">Let's talk</a>
+  </div>
+</header>
+
+<section class="hero" style="padding:72px 0 56px;">
+  <div class="container">
+    <p class="eyebrow-role">Contact</p>
+    <h1 style="font-size:clamp(2.2rem,4vw,3.2rem); max-width:22ch;">Have a project or a role in mind? Send a note.</h1>
+  </div>
+</section>
+
+<!-- ============ CONTACT DETAILS (left) + MESSAGE FORM (right) ============ -->
+<section>
+  <div class="container contact-grid">
+    <div>
+      <div class="section-head" style="margin-bottom:24px;">
+        <h2>Details</h2>
+      </div>
+      <ul class="contact-info">
+        <li><span>Email</span>chidozieakpunonu@gmail.com</li>
+        <li><span>Phone</span>+234 814 465 8380 / +234 901 909 0202</li>
+        <li><span>Location</span>Alakiaha, Port Harcourt, Rivers State</li>
+      </ul>
+      <a href="assets/Chidozie_Akpunonu_CV.pdf" download class="btn btn-outline" style="margin-top:28px;">Download CV</a>
+    </div>
+
+    <!-- Short-message contact form. JS below turns a submit into a
+         pre-filled email via mailto: (no backend needed to work). -->
+    <div>
+      <div class="section-head" style="margin-bottom:24px;">
+        <h2>Send a message</h2>
+      </div>
+      <form id="contact-form">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" maxlength="600" placeholder="A short message — what you're looking for, and any deadline." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send message</button>
+        <p class="status-msg" id="form-status"></p>
+        <p class="form-note">This is a static page, so sending opens your email app with the message pre-filled to chidozieakpunonu@gmail.com. To collect messages directly on the page instead, connect a form service (e.g. Formspree) or a small backend.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; width:100%;">
+    <span>&copy; 2026 Chidozie Joseph Akpunonu</span>
+    <span>Port Harcourt, Rivers State, Nigeria</span>
+  </div>
+</footer>
+
+<script>
+// Mobile nav toggle (shared with every page)
+document.querySelector('.menu-toggle').addEventListener('click', function(){
+  document.querySelector('nav ul').classList.toggle('open');
+});
+
+// ---- Contact form submit handler ----
+// Runs when the "Send message" button is clicked.
+document.getElementById('contact-form').addEventListener('submit', function(e){
+  e.preventDefault(); // stop the browser's normal page-reload submit
+
+  // Read what the visitor typed
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
+
+  // Build a mailto: link with the subject and body pre-filled,
+  // then send the browser there — this opens the visitor's email app.
+  const subject = encodeURIComponent('Website message from ' + name);
+  const body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
+  window.location.href = 'mailto:chidozieakpunonu@gmail.com?subject=' + subject + '&body=' + body;
+
+  // Show a small confirmation note under the form
+  const status = document.getElementById('form-status');
+  status.textContent = 'Opening your email app with this message ready to send…';
+  status.classList.add('show');
+});
+</script>
+</body>
+</html>

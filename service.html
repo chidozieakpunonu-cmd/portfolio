@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Services — Chidozie Akpunonu</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ HEADER / NAV (same block as other pages, "Services" active) ============ -->
+<header>
+  <div class="nav-wrap">
+    <a href="index.html" class="logo">Chidozie <span>Akpunonu</span></a>
+    <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="service.html" class="active">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="contact.html" class="nav-cta">Let's talk</a>
+  </div>
+</header>
+
+<section class="hero" style="padding:72px 0 56px;">
+  <div class="container">
+    <p class="eyebrow-role">Services</p>
+    <h1 style="font-size:clamp(2.2rem,4vw,3.2rem); max-width:24ch;">Systems, software and campaigns — handled end to end.</h1>
+    <p class="lede" style="max-width:60ch; margin-top:20px;">From wiring a network closet to shipping a website to running the marketing behind it, here's where I can help.</p>
+  </div>
+</section>
+
+<!-- ============ SIX SERVICE CARDS ============
+     Each .card is one offering. Add/remove a card to change the list. -->
+<section>
+  <div class="container grid-3">
+    <div class="card">
+      <h3>IT & Network Administration</h3>
+      <p>System diagnostics and maintenance, local and global network setup, CBT networks, cable and CCTV installation, CCNA-certified routing and security.</p>
+    </div>
+    <div class="card">
+      <h3>Full-Stack Web Development</h3>
+      <p>Front and back-end builds, CMS-driven websites, Android development, and general software/application management.</p>
+    </div>
+    <div class="card">
+      <h3>UI/UX Design</h3>
+      <p>Interfaces designed around how people actually use them, from wireframe to finished screen.</p>
+    </div>
+    <div class="card">
+      <h3>Digital Marketing</h3>
+      <p>Certified digital marketer running campaigns, content and brand presence online.</p>
+    </div>
+    <div class="card">
+      <h3>Cloud Computing</h3>
+      <p>Cloud-based infrastructure and services, an active area of ongoing research since 2025.</p>
+    </div>
+    <div class="card">
+      <h3>Robotics (Kids Level)</h3>
+      <p>Introductory robotics instruction and IT training, including free community sessions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FULL SKILL LIST (tag pills) ============ -->
+<section class="alt">
+  <div class="container">
+    <div class="section-head">
+      <h2>Full skill set</h2>
+      <p>Everything listed on my CV, grouped by area.</p>
+    </div>
+    <div class="tag-list">
+      <span class="tag">UI/UX Designer</span>
+      <span class="tag">Web Development (CMS)</span>
+      <span class="tag">Full-stack Developer</span>
+      <span class="tag">Digital Marketer</span>
+      <span class="tag">Robotics for Kids</span>
+      <span class="tag">ICT Hardware Diagnostics</span>
+      <span class="tag">Software Management</span>
+      <span class="tag">Network Administration</span>
+      <span class="tag">Network Security</span>
+      <span class="tag">CBT Networks</span>
+      <span class="tag">Android Development</span>
+      <span class="tag">Electrical & Cable Installation</span>
+      <span class="tag">CCTV Installation</span>
+      <span class="tag">Cloud Computing</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEDIA UPLOAD / PREVIEW ============
+     "accept" limits the file picker to audio & video; "multiple"
+     lets more than one file be chosen at once. The actual preview
+     is built by the JS at the bottom of this file (see #media-gallery). -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <h2>Media portfolio</h2>
+      <p>Add audio or video samples of your work — demo reels, interviews, tutorials — to show alongside your services.</p>
+    </div>
+
+    <div class="upload-box">
+      <div class="field" style="align-items:center;">
+        <label for="media-upload">Upload audio or video files</label>
+        <input type="file" id="media-upload" accept="audio/*,video/*" multiple>
+        <p class="form-note" style="margin-top:8px;">Files are previewed here in your browser only — this static page has no server, so nothing is uploaded or saved anywhere. Connect a backend or storage service to make this permanent.</p>
+      </div>
+    </div>
+
+    <!-- Preview cards get inserted here by JS, one per uploaded file -->
+    <div id="media-gallery"></div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; width:100%;">
+    <span>&copy; 2026 Chidozie Joseph Akpunonu</span>
+    <span>Port Harcourt, Rivers State, Nigeria</span>
+  </div>
+</footer>
+
+<script>
+// Mobile nav toggle (shared with every page)
+document.querySelector('.menu-toggle').addEventListener('click', function(){
+  document.querySelector('nav ul').classList.toggle('open');
+});
+
+// ---- Media upload preview ----
+// Runs whenever the person picks file(s) in the "Upload audio or
+// video files" input. For each file it builds a small <video> or
+// <audio> player pointing at a temporary local URL (createObjectURL),
+// so it plays instantly without uploading anywhere.
+const mediaInput = document.getElementById('media-upload');
+const gallery = document.getElementById('media-gallery');
+
+mediaInput.addEventListener('change', function(){
+  gallery.innerHTML = ''; // clear any previous preview cards
+  Array.from(mediaInput.files).forEach(file => {
+    const url = URL.createObjectURL(file); // temporary in-browser URL for this file
+    const item = document.createElement('div');
+    item.className = 'media-item';
+
+    // Pick <video> or <audio> based on the file's MIME type
+    let player;
+    if (file.type.startsWith('video')) {
+      player = document.createElement('video');
+      player.controls = true;
+    } else {
+      player = document.createElement('audio');
+      player.controls = true;
+      player.style.width = '100%';
+    }
+    player.src = url;
+
+    const name = document.createElement('p');
+    name.textContent = file.name; // show the filename under the player
+
+    item.appendChild(player);
+    item.appendChild(name);
+    gallery.appendChild(item);
+  });
+});
+</script>
+</body>
+</html>

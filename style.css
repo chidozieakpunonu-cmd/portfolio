@@ -1,0 +1,367 @@
+/* ==============================================================
+   PORTFOLIO STYLESHEET
+   Shared by all five pages: index, about, service, contact.
+   Sections below are ordered the same way on every page, so you
+   can find a style by scrolling to the matching comment.
+   ============================================================== */
+
+/* Google Fonts: Fraunces (serif, used for headings) + Inter (body text) */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap');
+
+/* ---------- Color & design tokens ----------
+   Change a value here and it updates everywhere on the site.
+   --terracotta is the main accent color (buttons, links, dots). */
+:root{
+  --cream:#FAF9F5;
+  --paper:#F1EDE3;
+  --ink:#26221B;
+  --ink-soft:#635C4E;
+  --terracotta:#D97757;
+  --terracotta-dark:#B85F40;
+  --line:#E3DDCC;
+  --teal:#3E5C54;
+}
+
+/* Reset default browser spacing so layout is predictable */
+*{box-sizing:border-box; margin:0; padding:0;}
+
+html{scroll-behavior:smooth;} /* smooth-scrolls to #anchor links */
+
+/* Base page styles: background, text color, default font */
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:'Inter', sans-serif;
+  font-size:16px;
+  line-height:1.6;
+}
+
+img{max-width:100%; display:block;}
+
+a{color:inherit; text-decoration:none;}
+
+h1,h2,h3{
+  font-family:'Fraunces', serif;
+  font-weight:600;
+  line-height:1.15;
+  letter-spacing:-0.01em;
+}
+
+/* .container centers content and caps its width on large screens.
+   Reused inside every <section> on every page. */
+.container{
+  max-width:1080px;
+  margin:0 auto;
+  padding:0 32px;
+}
+
+/* ---------- Header / top navigation ----------
+   Sticky bar with the logo, nav links, and the "Let's talk" button.
+   The .menu-toggle button only shows up on mobile (see media query below). */
+header{
+  border-bottom:1px solid var(--line);
+  background:var(--cream);
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+
+.nav-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 32px;
+  max-width:1080px;
+  margin:0 auto;
+}
+
+.logo{
+  font-family:'Fraunces', serif;
+  font-size:1.25rem;
+  font-weight:600;
+}
+
+.logo span{color:var(--terracotta);}
+
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:32px;
+}
+
+nav a{
+  font-size:0.95rem;
+  color:var(--ink-soft);
+  transition:color .15s ease;
+}
+
+nav a:hover, nav a.active{color:var(--ink);}
+
+.nav-cta{
+  border:1px solid var(--ink);
+  padding:8px 18px;
+  border-radius:2px;
+  font-size:0.9rem;
+}
+
+.nav-cta:hover{background:var(--ink); color:var(--cream);}
+
+.menu-toggle{display:none;}
+
+/* ---------- Buttons ----------
+   .btn is the shared shape/padding. Add .btn-primary (solid terracotta)
+   or .btn-outline (outlined) for the two color styles used site-wide. */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:13px 26px;
+  border-radius:2px;
+  font-size:0.95rem;
+  font-weight:500;
+  border:1px solid transparent;
+  cursor:pointer;
+}
+
+.btn-primary{
+  background:var(--terracotta);
+  color:#fff;
+}
+.btn-primary:hover{background:var(--terracotta-dark);}
+
+.btn-outline{
+  border-color:var(--ink);
+  color:var(--ink);
+}
+.btn-outline:hover{background:var(--ink); color:var(--cream);}
+
+/* ---------- Hero (top banner on every page) ----------
+   On index.html this is a two-column layout (.hero-grid): big
+   intro text on the left, a quick-facts list (.hero-side) on the
+   right. Other pages reuse .hero but only the left column. */
+.hero{
+  padding:96px 0 72px;
+  border-bottom:1px solid var(--line);
+}
+
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.3fr 1fr;
+  gap:56px;
+  align-items:end;
+}
+
+.eyebrow-role{
+  color:var(--terracotta);
+  font-family:'Fraunces', serif;
+  font-style:italic;
+  font-size:1.1rem;
+  margin-bottom:14px;
+}
+
+.hero h1{
+  font-size:clamp(2.6rem, 5vw, 4.2rem);
+  margin-bottom:20px;
+}
+
+.hero p.lede{
+  font-size:1.1rem;
+  color:var(--ink-soft);
+  max-width:46ch;
+  margin-bottom:32px;
+}
+
+.hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+
+.hero-side{
+  border-left:1px solid var(--line);
+  padding-left:32px;
+}
+
+.hero-side dl{display:grid; grid-template-columns:auto 1fr; gap:10px 16px; font-size:0.92rem;}
+.hero-side dt{color:var(--ink-soft);}
+.hero-side dd{color:var(--ink);}
+
+/* ---------- Section basics ----------
+   Every content block on the page is a <section>. Add class="alt"
+   to alternate the background color (cream vs. paper) so sections
+   read as visually distinct blocks as you scroll. */
+section{padding:64px 0;}
+section.alt{background:var(--paper);}
+
+/* The heading + short description row at the top of each section */
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:24px;
+  margin-bottom:40px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:20px;
+}
+
+.section-head h2{font-size:1.9rem;}
+.section-head p{color:var(--ink-soft); max-width:40ch;}
+
+/* ---------- Cards / grids ----------
+   .grid-3 / .grid-2 lay out equal-width columns (used for service
+   cards, skills, education/personal-info blocks). .card is the
+   bordered box used inside those grids. */
+.grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
+.grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:28px;}
+
+.card{
+  border:1px solid var(--line);
+  padding:28px;
+  background:var(--cream);
+}
+
+.card h3{font-size:1.15rem; margin-bottom:10px;}
+.card p{color:var(--ink-soft); font-size:0.95rem;}
+
+/* ---------- Timeline (work experience) ----------
+   Used on index.html and about.html. .timeline draws the vertical
+   line; each .timeline-item is one job, and its ::before pseudo-
+   element draws the little terracotta dot next to it. */
+.timeline{border-left:1px solid var(--line); padding-left:28px; display:flex; flex-direction:column; gap:36px;}
+
+.timeline-item{position:relative;}
+.timeline-item::before{
+  content:""; /* dot marker */
+  position:absolute;
+  left:-33px;
+  top:6px;
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:var(--terracotta);
+}
+
+.timeline-item .years{font-size:0.85rem; color:var(--terracotta); font-weight:600; margin-bottom:4px;}
+.timeline-item h3{font-size:1.15rem; margin-bottom:4px;}
+.timeline-item .org{color:var(--ink-soft); font-size:0.92rem; margin-bottom:8px;}
+.timeline-item ul{padding-left:18px; color:var(--ink-soft); font-size:0.94rem;}
+.timeline-item li{margin-bottom:4px;}
+
+/* ---------- Tags (skill pills) ---------- */
+.tag-list{display:flex; flex-wrap:wrap; gap:10px;}
+.tag{
+  border:1px solid var(--line);
+  padding:7px 14px;
+  font-size:0.85rem;
+  color:var(--ink-soft);
+  background:var(--cream);
+}
+
+/* ---------- Lists with dividers ----------
+   Used for research work, leadership positions, accomplishments,
+   contact details: a plain <ul> with a horizontal rule under
+   each <li> and the second bit of text pushed to the right. */
+.divided-list{border-top:1px solid var(--line);}
+.divided-list li{
+  list-style:none;
+  padding:16px 0;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  font-size:0.95rem;
+}
+.divided-list li span:first-child{color:var(--ink);}
+.divided-list li span:last-child{color:var(--ink-soft); text-align:right;}
+
+/* ---------- Forms ----------
+   Shared styling for the contact form (contact.html) and the
+   media-upload input (service.html). */
+form{display:flex; flex-direction:column; gap:18px; max-width:560px;}
+
+.field{display:flex; flex-direction:column; gap:6px;}
+label{font-size:0.88rem; color:var(--ink-soft);}
+
+input[type=text], input[type=email], textarea, input[type=file]{
+  border:1px solid var(--line);
+  background:var(--cream);
+  padding:12px 14px;
+  font-family:inherit;
+  font-size:0.95rem;
+  color:var(--ink);
+}
+
+input:focus, textarea:focus{outline:2px solid var(--terracotta); outline-offset:2px;}
+
+textarea{resize:vertical; min-height:130px;}
+
+.form-note{font-size:0.85rem; color:var(--ink-soft);}
+
+/* Dashed box around the audio/video file picker on service.html */
+.upload-box{
+  border:1px dashed var(--line);
+  padding:24px;
+  text-align:center;
+  background:var(--paper);
+}
+
+.upload-box input[type=file]{border:none; background:none; padding:0;}
+
+/* Grid of preview cards that JS fills in after files are chosen */
+#media-gallery{
+  margin-top:28px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(220px,1fr));
+  gap:20px;
+}
+
+.media-item{border:1px solid var(--line); padding:12px; background:var(--cream);}
+.media-item p{font-size:0.82rem; color:var(--ink-soft); margin-top:8px; word-break:break-word;}
+.media-item video, .media-item audio{width:100%;}
+
+/* Small confirmation banner shown after the contact form is submitted.
+   Hidden by default; JS adds the .show class to reveal it. */
+.status-msg{
+  font-size:0.9rem;
+  padding:12px 14px;
+  border:1px solid var(--terracotta);
+  color:var(--terracotta-dark);
+  display:none;
+}
+.status-msg.show{display:block;}
+
+/* ---------- Contact info blocks ----------
+   Two-column layout used on about.html (personal info/education)
+   and contact.html (details/form): a label above a value. */
+.contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px;}
+.contact-info li{list-style:none; padding:14px 0; border-bottom:1px solid var(--line); font-size:0.95rem;}
+.contact-info li span{display:block; color:var(--ink-soft); font-size:0.82rem; margin-bottom:3px;}
+
+/* ---------- Footer (same on every page) ---------- */
+footer{
+  border-top:1px solid var(--line);
+  padding:36px 0;
+  font-size:0.85rem;
+  color:var(--ink-soft);
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+/* ---------- Responsive (phones/tablets, screens under 820px) ----------
+   Stacks the multi-column grids into one column and turns the top
+   nav into a dropdown controlled by .menu-toggle (the ☰ button). */
+@media (max-width:820px){
+  .hero-grid, .grid-3, .grid-2, .contact-grid{grid-template-columns:1fr;}
+  .hero-side{border-left:none; border-top:1px solid var(--line); padding-left:0; padding-top:24px;}
+  nav ul{
+    position:absolute; top:100%; left:0; right:0;
+    flex-direction:column; background:var(--cream);
+    border-bottom:1px solid var(--line);
+    padding:16px 32px; gap:16px; display:none;
+  }
+  nav ul.open{display:flex;}
+  .menu-toggle{display:block; background:none; border:none; font-size:1.4rem; cursor:pointer; color:var(--ink);}
+  .nav-cta{display:none;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto;}
+}
