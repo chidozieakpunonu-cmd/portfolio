@@ -101,15 +101,14 @@
       <p>Add audio or video samples of your work — demo reels, interviews, tutorials — to show alongside your services.</p>
     </div>
 
-    <div class="upload-box">
-      <div class="field" style="align-items:center;">
-        <iframe width="560" height="315" src="https://youtu.be/3czgkZEVSXs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-        </iframe>
-        <!-- <label for="media-upload">Upload audio or video files</label> -->
-        <input type="file" id="media-upload" accept="audio/*,video/*" multiple>
-         <p class="form-note" style="margin-top:8px;">Files are previewed here in your browser only — this static page has no server, so nothing is uploaded or saved anywhere. Connect a backend or storage service to make this permanent.</p>
-      </div>
-    </div>
+ <div class="media-item">
+  <iframe width="100%" height="220"
+    src="https://www.youtube.com/embed/3czgkZEVSXs"
+    title="YouTube video" frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen></iframe>
+  <p>Featured video</p>
+</div>
 
     <!-- Preview cards get inserted here by JS, one per uploaded file -->
     <div id="media-gallery"></div>
