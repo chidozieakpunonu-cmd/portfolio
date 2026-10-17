@@ -53,7 +53,7 @@
       <div class="section-head" style="margin-bottom:24px;">
         <h2>Send a message</h2>
       </div>
-      <!-- <form id="contact-form">
+      <form id="contact-form">
         <div class="field">
           <label for="name">Name</label>
           <input type="text" id="name" name="name" required>
@@ -66,22 +66,7 @@
           <label for="message">Message</label>
           <textarea id="message" name="message" maxlength="600" placeholder="A short message — what you're looking for, and any deadline." required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send message</button> -->
-        <form action="https://web3forms.com" method="POST">
-    <!-- Replace with your actual Access Key -->
-    <input type="hidden" name="access_key" value="YOUR_KEY_HERE">
-
-    <label for="name">Name:</label>
-    <input type="text" name="name" required>
-
-    <label for="email">Email:</label>
-    <input type="email" name="email" required>
-
-    <label for="message">Message:</label>
-    <textarea name="message" required></textarea>
-
-    <button type="submit">Submit Form</button>
-</form>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send message</button>
 
         <p class="status-msg" id="form-status"></p>
         <p class="form-note">This is a static page, so sending opens your email app with the message pre-filled to chidozieakpunonu@gmail.com. To collect messages directly on the page instead, connect a form service (e.g. Formspree) or a small backend.</p>
