@@ -5,14 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Contact — C. Joseph Akpunonu</title>
 <link rel="stylesheet" href="style.css">
+<!-- 1. LOAD EMAILJS SDK -->
+<script type="text/javascript" src="https://jsdelivr.net"></script>
+<script type="text/javascript">
+  (function(){
+    // Your active EmailJS Public Key
+    emailjs.init("EDnMrBXH-J_L4zYBP"); 
+  })();
+</script>
 </head>
 <body>
 
-<!-- ============ HEADER / NAV (same block as other pages, "Contact" active) ============ -->
+<!-- ============ HEADER / NAV ============ -->
 <header>
   <div class="nav-wrap">
     <a href="index.html" class="logo">C. Joseph <span>Akpunonu</span></a>
-    <button class="menu-toggle" aria-label="Toggle menu">&#9776;</button>
+    <button class="menu-toggle" aria-label="Toggle menu">☰</button>
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
@@ -32,7 +40,7 @@
   </div>
 </section>
 
-<!-- ============ CONTACT DETAILS (left) + MESSAGE FORM (right) ============ -->
+<!-- ============ CONTACT DETAILS + MESSAGE FORM ============ -->
 <section>
   <div class="container contact-grid">
     <div>
@@ -47,8 +55,7 @@
       <a href="assets/Chidozie_Akpunonu_CV.pdf" download class="btn btn-outline" style="margin-top:28px;">Download CV</a>
     </div>
 
-    <!-- Short-message contact form. JS below turns a submit into a
-         pre-filled email via mailto: (no backend needed to work). -->
+    <!-- Live EmailJS Contact Form -->
     <div>
       <div class="section-head" style="margin-bottom:24px;">
         <h2>Send a message</h2>
@@ -56,20 +63,19 @@
       <form id="contact-form">
         <div class="field">
           <label for="name">Name</label>
-          <input type="text" id="name" name="name" required>
+          <input type="text" id="name" name="from_name" required>
         </div>
         <div class="field">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
+          <input type="email" id="email" name="reply_to" required>
         </div>
         <div class="field">
           <label for="message">Message</label>
           <textarea id="message" name="message" maxlength="600" placeholder="A short message — what you're looking for, and any deadline." required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send message</button>
+        <button type="submit" id="submit-btn" class="btn btn-primary" style="align-self:flex-start;">Send message</button>
 
-        <p class="status-msg" id="form-status"></p>
-        <p class="form-note">This is a static page, so sending opens your email app with the message pre-filled to chidozieakpunonu@gmail.com. To collect messages directly on the page instead, connect a form service (e.g. Formspree) or a small backend.</p>
+        <p class="status-msg" id="form-status" style="margin-top:15px; font-weight:bold;"></p>
       </form>
     </div>
   </div>
@@ -84,31 +90,38 @@
 </footer>
 
 <script>
-// Mobile nav toggle (shared with every page)
+// Mobile nav toggle
 document.querySelector('.menu-toggle').addEventListener('click', function(){
   document.querySelector('nav ul').classList.toggle('open');
 });
 
-// ---- Contact form submit handler ----
-// Runs when the "Send message" button is clicked.
-document.getElementById('contact-form').addEventListener('submit', function(e){
-  e.preventDefault(); // stop the browser's normal page-reload submit
+// ---- EmailJS Form Integration ----
+const form = document.getElementById('contact-form');
+const statusMsg = document.getElementById('form-status');
+const submitBtn = document.getElementById('submit-btn');
 
-  // Read what the visitor typed
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const message = document.getElementById('message').value;
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  submitBtn.disabled = true;
+  statusMsg.style.color = '#333';
+  statusMsg.textContent = "Sending your message...";
 
-  // Build a mailto: link with the subject and body pre-filled,
-  // then send the browser there — this opens the visitor's email app.
-  const subject = encodeURIComponent('Website message from ' + name);
-  const body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
-  window.location.href = 'mailto:chidozieakpunonu@gmail.com?subject=' + subject + '&body=' + body;
+  const serviceID = 'service_ov9ezz4';
+  const templateID = 'template_zkrt4fr'; 
 
-  // Show a small confirmation note under the form
-  const status = document.getElementById('form-status');
-  status.textContent = 'Opening your email app with this message ready to send…';
-  status.classList.add('show');
+  emailjs.sendForm(serviceID, templateID, this)
+    .then(() => {
+      statusMsg.style.color = "green";
+      statusMsg.textContent = "Message sent successfully! I will get back to you soon.";
+      form.reset();
+      submitBtn.disabled = false;
+    }, (err) => {
+      submitBtn.disabled = false;
+      statusMsg.style.color = "red";
+      statusMsg.textContent = "Failed to send message. Please try again.";
+      console.error('EmailJS Error:', err);
+    });
 });
 </script>
 </body>
