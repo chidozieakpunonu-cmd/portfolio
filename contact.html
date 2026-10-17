@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Contact — C. Joseph Akpunonu</title>
 <link rel="stylesheet" href="style.css">
-<!-- 1. LOAD EMAILJS SDK -->
-<script type="text/javascript" src="https://jsdelivr.net"></script>
-<script type="text/javascript">
+
+<!-- ============ EMAILJS SDK INTEGRATION ============ -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
   (function(){
-    // Your active EmailJS Public Key
-    emailjs.init("EDnMrBXH-J_L4zYBP"); 
+    emailjs.init({ publicKey: "toourHjHErXhDWMn9" });
   })();
 </script>
 </head>
@@ -55,7 +55,6 @@
       <a href="assets/Chidozie_Akpunonu_CV.pdf" download class="btn btn-outline" style="margin-top:28px;">Download CV</a>
     </div>
 
-    <!-- Live EmailJS Contact Form -->
     <div>
       <div class="section-head" style="margin-bottom:24px;">
         <h2>Send a message</h2>
@@ -74,8 +73,8 @@
           <textarea id="message" name="message" maxlength="600" placeholder="A short message — what you're looking for, and any deadline." required></textarea>
         </div>
         <button type="submit" id="submit-btn" class="btn btn-primary" style="align-self:flex-start;">Send message</button>
-
-        <p class="status-msg" id="form-status" style="margin-top:15px; font-weight:bold;"></p>
+        <p class="status-msg" id="form-status"></p>
+        <p class="form-note">Your message will be securely delivered straight to chidozieakpunonu@gmail.com without opening your email app.</p>
       </form>
     </div>
   </div>
@@ -95,31 +94,38 @@ document.querySelector('.menu-toggle').addEventListener('click', function(){
   document.querySelector('nav ul').classList.toggle('open');
 });
 
-// ---- EmailJS Form Integration ----
-const form = document.getElementById('contact-form');
-const statusMsg = document.getElementById('form-status');
-const submitBtn = document.getElementById('submit-btn');
-
-form.addEventListener('submit', function(e) {
+// ============ CONTACT FORM EMAILJS HANDLER ============
+document.getElementById('contact-form').addEventListener('submit', function(e){
   e.preventDefault();
-  
+
+  const status = document.getElementById('form-status');
+  const submitBtn = document.getElementById('submit-btn');
+  const form = this;
+
+  status.textContent = 'Sending your message...';
+  status.style.color = '#333';
   submitBtn.disabled = true;
-  statusMsg.style.color = '#333';
-  statusMsg.textContent = "Sending your message...";
 
-  const serviceID = 'service_ov9ezz4';
-  const templateID = 'template_zkrt4fr'; 
+  const serviceID = 'service_u0kiw46';
+  const templateID = 'template_424tlum';
 
-  emailjs.sendForm(serviceID, templateID, this)
+  if (typeof emailjs === 'undefined') {
+    status.textContent = 'Email service failed to load. Please check your connection and refresh.';
+    status.style.color = 'red';
+    submitBtn.disabled = false;
+    return;
+  }
+
+  emailjs.sendForm(serviceID, templateID, form)
     .then(() => {
-      statusMsg.style.color = "green";
-      statusMsg.textContent = "Message sent successfully! I will get back to you soon.";
+      status.textContent = 'Message sent successfully! I will get back to you soon.';
+      status.style.color = 'green';
       form.reset();
       submitBtn.disabled = false;
     }, (err) => {
+      status.textContent = 'Failed to send the message. Please try again later.';
+      status.style.color = 'red';
       submitBtn.disabled = false;
-      statusMsg.style.color = "red";
-      statusMsg.textContent = "Failed to send message. Please try again.";
       console.error('EmailJS Error:', err);
     });
 });
